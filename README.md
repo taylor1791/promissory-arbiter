@@ -5,9 +5,14 @@
 ## Getting Started
 
 Getting arbiter up and running is simple. It can be used as a `node_module` on
-the client (using WebPack et al.) or on the server. It can even be downloaded
+the client (using WebPack et al.) or on the server. It can even be
+[downloaded](https://raw.github.com/taylor1791/promissory-arbiter/master/src/promissory-arbiter.js)
 and set into a `third_party` or `vendor` directory and used with a high fidelity
 `<script>` tag. Try it out in the console (unless your on github)!
+
+```
+npm install promissory-arbiter
+```
 
 Here is a quick example to get you started. If you want to see more advanced
 examples keep on reading. Take a look at the
