@@ -10,7 +10,8 @@ and set into a `third_party` or `vendor` directory and used with a high fidelity
 `<script>` tag. Try it out in the console (unless your on github)!
 
 Here is a quick example to get you started. If you want to see more advanced
-examples keep on reading.
+examples keep on reading. Take a look at the
+[documentation site](http://taylor1791.github.io/promissory-arbiter/).
 
 ```
 var Arbiter = require('promissory-arbiter');
