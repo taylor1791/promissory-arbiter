@@ -1,0 +1,8 @@
+{
+  "opts": {
+    "template": "docs/template"
+  },
+  "source": {
+    "include": "src/"
+  }
+}

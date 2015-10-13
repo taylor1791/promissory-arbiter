@@ -1,0 +1,43 @@
+{
+  "name": "promissory-arbiter",
+  "version": "1.0.0",
+  "description": "An asynchronous, hierarchical, topic-based, promissory implementation of the pub-sub pattern",
+  "author": "Taylor Everding <Taylor@Everding.email>",
+  "scripts": {
+    "lint": "eslint ./**/*.js || true",
+    "unit-test": "karma start --single-run || true",
+    "test": "npm run unit-test && npm run lint || true",
+    "gen-docs": "jsdoc -c docs/jsdoc.config.json || true"
+  },
+  "homepage": "https://github.com/taylor1791/promissory-arbiter#readme",
+  "main": "src/promissory-arbiter.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taylor1791/promissory-arbiter"
+  },
+  "bugs": {
+    "url": "https://github.com/taylor1791/promissory-arbiter/issues"
+  },
+  "keywords": [
+    "observer",
+    "sub",
+    "pub",
+    "arbiter",
+    "events"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "es6-promise": "^3.0.2",
+    "eslint": "^1.5.0",
+    "fs-extras": "^0.24.0",
+    "handlebars": "^4.0.3",
+    "jsdoc": "^3.3.3",
+    "karma": "^0.13.10",
+    "karma-coverage": "^0.5.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "marked": "^0.3.5",
+    "phantomjs": "^1.9.18"
+  },
+  "license": "ISC"
+}

@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "func-names": 0,
+    "max-nested-callbacks": 0
+  },
+  "env": {
+    "jasmine": true
+  },
+  "globals": {
+    "Arbiter": false
+  }
+}

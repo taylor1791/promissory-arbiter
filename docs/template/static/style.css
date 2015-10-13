@@ -1,0 +1,227 @@
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.8em;
+  font-family: 'Source Sans Pro', 'Lucida Grande', sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+li {
+  list-style-type: none;
+}
+
+.hero {
+  background-color: #4476A1;
+  background-image: url(background-tiled.png);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #eee;
+  text-shadow: 1px 1px 2px rgba(34,34,34,0.5);
+}
+
+.nav-container {
+  background-color: #333;
+  width: 100%;
+}
+
+.logo {
+  color: #4476A1;
+  display: none;
+  font-weight: bold;
+  margin: 1em;
+}
+
+.main-nav {
+  margin: 0;
+  padding-left: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.main-nav__nav-item {
+  padding: 1em 2em;
+}
+
+.main-nav__nav-item--active {
+  background-color: #444;
+}
+
+.main-nav__link {
+  color: #bbb;
+  text-decoration: none;
+}
+
+.main-nav__link--active {
+  color: #eee;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-title {
+  font-size: 8rem;
+  font-family: Helvetica, sans-serif;
+}
+
+.hero-oneliner {
+  color: #ddd;
+}
+
+.inline-pre {
+  margin: 0 1em;
+}
+
+.inline-code {
+  padding: 0 0.5em;
+}
+
+.object-property, .method-param, .method-return {
+  display: flex;
+  align-items: center;
+  margin: 1em;
+}
+
+.param-description > p,
+.property-description > p,
+.return-description > p {
+  margin: 0;
+}
+
+.hljs {
+  text-align: left;
+}
+
+.nohighlight .hljs-keyword,
+.nohighlight .hljs-built_in,
+.nohighlight .hljs-function {
+  color: inherit;
+}
+
+.secondary-title {
+  display: block;
+  font-size: 0.6em;
+}
+
+.content {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.flex-row-sm {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width : 480px) {
+  .main-nav {
+    justify-content: flex-start;
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .logo {
+    display: initial;
+  }
+}
+
+.type-signature {
+  overflow: inherit;
+}
+
+.tooltip-container {
+  display: inline;
+  cursor: help;
+  position: relative;
+  -webkit-transform: translateZ(0); /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
+}
+
+.tooltip {
+  white-space: initial;
+  width: 200uuuupx;
+  background: #333;
+  bottom: 100%;
+  display: block;
+  left: -25px;
+  margin-bottom: 15px;
+  opacity: 0;
+  padding: 0 20px;
+  pointer-events: none;
+  position: absolute;
+  -webkit-transform: translateY(10px);
+     -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .25s ease-out;
+     -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+          transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+     -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.tooltip:before {
+  bottom: -20px;
+  content: " ";
+  left: 0;
+  height: 20px;
+  position: absolute;
+  width: 100%;
+}
+
+/* CSS Triangles - see Trevor's post */
+.tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid #1496bb 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  position: absolute;
+  margin-left: -13px;
+  width: 0;
+}
+
+.tooltip-container:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}
+
+@media only screen and (min-width : 768px) {
+  .flex-row-sm {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+@media only screen and (min-width : 992px) {}
+@media only screen and (min-width : 1200px) {}
+
+

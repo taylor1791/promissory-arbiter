@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Promissory Arbiter</title>
+    <meta name="description" content="An asynchronous, hierarchical, topic-based, promissory implementation of the pub-sub pattern">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="static/highlight/darkula.css" />
+    <link href="static/style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!--[if lt IE 11]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser.
+        This library will work with it, but you really should be <a href="http://browsehappy.com/">happy</a> during development.
+      </p>
+    <![endif]-->
+
+    <header class="hero">
+      <nav class="nav-container">
+        <div class="logo">Arbiter</div>
+        <ul class="main-nav">
+          <li class="main-nav__nav-item--active main-nav__nav-item">
+            <a class="main-nav__link main-nav__link--active" href="/">Home</a>
+          </li>
+
+          <li class="main-nav__nav-item">
+            <a class="main-nav__link" href="#docs">Docs</a>
+          </li>
+
+          <li class="main-nav__nav-item">
+            <a class="main-nav__link" href="//github.com/taylor1791/promissory-arbiter">Code</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="banner">
+        <div>Under normal circumstances there would be an awesome mascott here. However, he is still hatching in the incubator Just imagine something really cool for now.</div>
+        <!-- <img src="//i770.photobucket.com/albums/xx342/AuraHazeGMK/aerodactyl.png" alt="mascot terry"/> -->
+
+        <div class="flex-row-sm">
+          <h1 class="hero-title">
+            <span class="secondary-title">Promissory</span>
+            Arbiter
+          </h1>
+
+          <pre><code>
+Arbiter.subscribe('code', doSomething);
+Arbiter.subscribe('code.write', doAnother);
+Arbiter.publish('code.write', data)
+  .then(subscribersComplete);
+          </code></pre>
+        </div>
+
+        <h2 class="hero-oneliner">Decouple your code with an asynchronous, hierarchical, promissory observer.</h2>
+      </div>
+    </header>
+
+    <!-- TODO Download and getting the code -->
+
+    <!-- TODO TOC <aside role="complementary"></aside> -->
+
+    <main id="docs" class="content">
+      <section id="getting-started">
+        <h3>Getting Started</h3>
+
+        {{{readme.gettingStarted}}}
+      </section>
+
+      <section id="introduction">
+        <h3>Introduction</h3>
+
+        {{{readme.introduction}}}
+      </section>
+
+    {{#each docItems}}
+      <section id="{{normalize name}}">
+        <h3>{{name}}</h3>
+
+      {{#if properties}}
+        <div class="object-properties">
+        {{#each properties}}
+          <div class="object-property">
+            <div class="property-name">{{name}}</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">{{#each type.names}}{{this}}{{#unless @last}} | {{/unless}}{{/each}}</code></pre>
+            </div>
+            <div class="property-description">{{{markdown description}}}</div>
+          </div>
+        {{/each}}
+        </div>
+      {{/if}}
+
+      {{#if params}}
+      <pre class="type-signature"><code class="type-signature"><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->{{name}}(<!--
+
+      -->{{#if returns}}<!--
+        --><span class="tooltip"><!--
+        -->{{#each returns}}<!--
+          -->{{#each type.names}}{{this}}{{#unless @last}} | {{/unless}}{{/each}}<!--
+          -->{{{markdown description}}}<!--
+        -->{{/each}}<!--
+        --></span><!--
+      -->{{/if}}<!--
+      --></span><!--
+
+    -->{{#each params}}<!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->{{name}}<!--
+
+        --><span class="tooltip"><!--
+          -->{{#each type.names}}{{this}}{{#unless @last}} | {{/unless}}{{/each}}<!--
+          -->{{{markdown description}}}<!--
+        --></span><!--
+      --></span><!--
+     -->{{#unless @last}}, {{/unless}}<!--
+   -->{{/each}})<!--
+  --></code></pre>
+
+      {{/if}}
+
+        {{{markdown description}}}
+
+      {{#if examples}}
+      <h4>Example</h4>
+      {{#each examples}}
+        <pre><code>{{this}}</code></pre>
+      {{/each}}
+      {{/if}}
+      </section>
+
+    {{/each}}
+    </main>
+
+    <footer></footer>
+
+    <script src="static/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script async src="./static/promissory-arbiter.js"></script>
+    <script type="text/javascript">
+      // This is for copy and paste friendly examples
+      var data = "This was defined for your copy-and-past-ability.";
+
+      function log(data, topic) {
+        console.log(topic, data);
+      }
+
+      function doSomething(data, topic) {
+        console.log('Oops! It looks like you forgot to define `doSomething`. Don\'t worry, I took care of it for you. Don\'t let it happen again!');
+        log(data, topic);
+      }
+
+     var doAnother = doSomething;
+    </script>
+  </body>
+</html>
+
