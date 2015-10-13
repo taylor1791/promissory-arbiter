@@ -29,7 +29,7 @@
   "devDependencies": {
     "es6-promise": "^3.0.2",
     "eslint": "^1.5.0",
-    "fs-extras": "^0.24.0",
+    "fs-extra": "^0.24.0",
     "handlebars": "^4.0.3",
     "jsdoc": "^3.3.3",
     "karma": "^0.13.10",
