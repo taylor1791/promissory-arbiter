@@ -1,8 +1,9 @@
 language: node_js
 node_js:
-  - '0.10'
+- '0.10'
 after_success:
-  - test "$TRAVIS_REPO_SLUG" == "taylor1791/promissory-arbiter" && test "$TRAVIS_PULL_REQUEST" == "false" && test "$TRAVIS_BRANCH" == "master" && bash scripts/deploy-docs.sh
+- test "$TRAVIS_REPO_SLUG" == "taylor1791/promissory-arbiter" && test "$TRAVIS_PULL_REQUEST"
+  == "false" && test "$TRAVIS_BRANCH" == "master" && bash scripts/deploy-docs.sh
 env:
   global:
-    secure: bT0rZ6H9azsBq03iWYak1rxzh0oN9eC2hwU4Aius6TQxq2G1b20bAS3qLUAWwkwsDKNyyLCXWkveJrhCR9qXhtZ/O+U2q8NtyQy3MJ4YDwpnv40bqwJ7Rua70DI5zH6HixSbiTYnWTIRk4Vh6K89qIyT2Dit+ivA96tg7+ZqgB1ai2/N+76G7qwZDBdhNfzNsY48cO/xcrgICk3Glae7C4+zkaEXROjAZKeQxixVV6GEoEQY1SVRs9YSfF9oejiUgYxesyQ3aUe1ZjaM+Zqv6UpHCzSqnQkLFGh1JWLtO1dF91yXI46BiQ80MJ/N5KswRh043j7oYz/BPLSiGa1QxnonXCI7z/ZKmjPBe/ovvuKLVj3bl8HTxhUgKWCCmNp2FX284jIKAznBo92J0DzvCkRRuVANBFrZpEdA286VtXWhiF/pvyW3O0hFjy2IAPBDUxfuq6uvd+7xIxokBkxSMf0twxE9PopkTBW62yduP6qIkG2uSVHc92/FaILgoPtXXymJZkLMmPFpfSk0p8+9sDGO490PFELnrfNUJNMLW7KNOu5yJUWd8DsMiv0mg8pDQ+i900xCSDKVAX3U8HweNJp7JThNTNmAcZzzsYIMSaHFRzP7KvLiJazZt71wPR3/WCcL0+jKtbYiP+5siMjz9GKSr3ei/7eRJglZVy7V3mo=
+  - secure: bHP8TQOotSG33LBdMnENpGc4KF3FpnU4duJ8htFOyXOpSTUxNsCVetmZRudLHIDaeHyPLafQM860mCV6SEe2G5Y/yQhSjlG/A0Y0yRBkurneFbKgoVFOwUn3MV3hje5UXVRn9j5yKcfsbDoSRLOyjWHxb09rIv9YgQCLkGxrbLBTVc3hvku3cwUkhYS0MB8q/SMLOpqVtmSwyBRuvs92MLBbKmjtYCD/SVdNxSqq/mfgZ1Aq0vz8+gM+FUJlb0dwOabRuR8XcpDRupEsjJ4Uv1KgxZL9vIDH9D70sZvaxsgmscEsYdC3PRd9Qbc5/QHVlhPIBNjWV58NxVgCccMerfJR4mnknF78Q+x7VPTONrHCjhjhR487afpzuZysX8JK71k2jlEY5xH9WfG7yeVS8/rwJ140z7jEtF6LixCJzMHWle8YAKJc44/3tG/m43Kjqh/24C1rTuLDj81vsvWCToX4bphixan+NORkgL+U4tcUqQhQUwmkWlRGINqF2W4XHimXPpBZyUTIL8+wUIImtER9bzw45ZP+veUlvWQa62O0A/+zk+dKR1lS4BxKVeDSpMLm3XO3ZCJpSnsNxAn6lDYqa/vaUiB0QUAGbpMiNJ2pCzZ35J+w8VqmuR9Qkwy2O4sg4/IWfk4FuZa/tiw8YU0LpACQ/QP/mMhcg0+1xXU=
