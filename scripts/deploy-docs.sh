@@ -15,5 +15,5 @@ git config user.email $GIT_EMAIL
 git add .
 git commit -m "Auto-deploy docs $rev"
 
-git push --force --quiet "https://$GH_TOKEN@${GH_REF}" master:gh-pages
+git push --force --quiet "https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG" master:gh-pages
 
