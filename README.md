@@ -43,8 +43,8 @@ them. This allows components to be "loosely" coupled which can lead to more
 maintainable code if used correctly.
 
 Promissory Arbiter is asynchronous by default. This means that all subscribers
-are notified asynchronously of messages. This makes code easier to reasonable
-because especially when subscribers fire off additional events. This also
+are notified asynchronously of messages. This makes code easier to reason about
+especially when subscribers fire off additional events. This also
 lines up with the expectations of most other uses of the callback pattern in
 JavaScript effectively reducing cognitive load. Since you have been reading
 a while. Take a break by trying the following code in the console if you are
@@ -77,12 +77,12 @@ The last unique feature of promissory-arbiter is "promissory" features. When a
 publication is made, the publisher gets a promise that it can use to reason
 about the subscribers. The promise will resolve according to the specified
 options. By default, when all subscribers are complete the promise fulfills
-and if any fail, it rejects. This can be change to allow for a number
+and if any fail, it rejects. This can be changed to allow for a number
 fulfilled or percent of all subscribers to be fulfilled. You can even relax
-the promise to be resolved when a number or percent resolve regardless of
+the promise to be resolved when a number or percent resolves regardless of
 their success or failure status. In addition to this, it has settings for only
 running specified number of subscribers at at a time. All of this is documented
-in the [Options](#options) section. Or randomly guess the options until you
+in the [Options](#options) section, or randomly guess the options until you
 have something like the following.
 
 ```

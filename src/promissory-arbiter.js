@@ -88,7 +88,7 @@
    * A Subscription is a function provided to the `subscribe` method. It is used
    * as a callback when a publication occurs. The subscriber is considered
    * "done working" if it returns a value (even `undefined`). If an error is
-   * throw, then it is assumed that the subscriber failed. If it returns a
+   * thrown, then it is assumed that the subscriber failed. If it returns a
    * `Promise`, then it is "done" when the `Promise` is fulfilled. If rejected,
    * it is assumed to fail. If the subscriber function has a length of 3
    * or more, then it is provided with callback function as the third argument
@@ -192,8 +192,9 @@
   /**
    * `publish` returns a `PublicationPromise`. This is a regular old
    * promise with some additional properties described below. Each property is
-   * updated in real time as updates occur, it stops updating when the promise
-   * fulfills. This can be changed with Arbiter.options.updateAfterSettlement.
+   * updated in real time as updates occur; it stops updating when the promise
+   * fulfills. This can be changed with
+   * `Arbiter.options.updateAfterSettlement`.
    *
    * @typedef PublicationPromise PublicationPromise
    * @memberof Arbiter
@@ -203,8 +204,8 @@
    *   promise settles.
    * @property {number} pending The number of promises pending when this
    *   promise settles.
-   * @property {Token} token If the options.persist is true, then a token is
-   *   added to the promise so that it can be removed later.
+   * @property {Token} token If the `options.persist` is true, then a token is
+   *   added to the promise so it can be removed later.
    *
    * @example
    *
@@ -233,10 +234,10 @@
   }
 
   /**
-   *  Arbiter.unsubscribe removes the subscribers associated with a token or
+   *  `Arbiter.unsubscribe` removes the subscribers associated with a token or
    *  a topic. This prevents them from being notified when a publication
    *  occurs. By default these cannot be recovered, however this also allows
-   *  us to temporally suspend them instead.
+   *  us to temporarily suspend them instead.
    *
    * @function unsubscribe
    * @memberof Arbiter
@@ -301,7 +302,7 @@
 
   /**
    * Removes the publications that are stored (persisted) for late subscribers
-   * by providing either a token or a Topic.
+   * by providing either a `Token` or a `Topic`.
    *
    * @memberof Arbiter
    * @param {Token|Topic} token The publication or topics to remove. Note: If
@@ -372,19 +373,19 @@
      * @property {boolean} sync=false When true, invokes the subscription
      *   functions synchronously.
      * @property {boolean} preventBubble=false When true, only the topics
-     *   that match published topic exactly are invoked.
+     *   that match the published topics exactly are invoked.
      * @property {number} latch=0.9999999999999999 When this number is less
-     *   one, it is the ratio of subscribers that must fulfilled before
-     *   resolving the PublicationPromise. If greater or equal to one
-     *   the it is a count of the subscribers that must fulfill.
+     *   than one, it is the ratio of subscribers that must fulfilled before
+     *   resolving the `PublicationPromise`. If greater or equal to one,
+     *   then it is a count of the subscribers that must fulfill.
      * @property {boolean} settlementLatch=false Changes the resolving logic
-     *   of PublicationPromise to be based off of resolved rather than
+     *   of `PublicationPromise` to be based off resolved rather than
      *   fulfilled promises. This means that failed subscribers will count
-     *   tword the tally of latch.
+     *   toward the tally of latch.
      * @property {number} semaphor=Infinity The maximum number of subscribers
-     *   to allow to be pending at any given point in time.
-     * @property {boolean} updateAfterSettlement=false If true, update the
-     *   PublicationPromise after it resolves.
+     *   to allowed to be pending at any given point in time.
+     * @property {boolean} updateAfterSettlement=false If true, updates the
+     *   `PublicationPromise` after it resolves.
      *
      * @example
      *
