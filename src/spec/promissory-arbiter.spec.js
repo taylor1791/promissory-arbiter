@@ -1,4 +1,4 @@
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 35;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 50;
 
 describe('Arbiter', function () {
   'use strict';
@@ -459,8 +459,8 @@ describe('Arbiter', function () {
                   expect(r.dps[2].spy).toHaveBeenCalled();
                   r.dps[2].resolve();
                   cb();
-                });
-              });
+                }, 5);
+              }, 5);
             });
           });
         });
@@ -734,15 +734,15 @@ describe('Arbiter', function () {
     function subPub (topic, spy, options, context) {
       spy = spy || jasmine.createSpy();
 
-      if (!Array.isArray(spy)) {
+      if (!isArray(spy)) {
         spy = [spy];
       }
 
-      if (!Array.isArray(options)) {
+      if (!isArray(options)) {
         options = repeat(spy.length, options);
       }
 
-      spy.forEach(function (spyi, i) {
+      forEach(spy, function (spyi, i) {
         sub(topic, spyi, options[i], context);
       });
 
@@ -776,13 +776,13 @@ describe('Arbiter', function () {
     function ndp (topic, n, resolve, m) {
       m = typeof m === 'undefined' ? n : m;
 
-      var dps = repeat(n, '').map(delayedPromise).map(function (dp) {
+      var dps = map(map(repeat(n, ''), delayedPromise),function (dp) {
         dp.spy = jasmine.createSpy().and.callFake(always(dp.promise));
         sub(topic, dp.spy);
         return dp;
       });
 
-      dps.forEach(function (dp, i) {
+      forEach(dps, function (dp, i) {
         if (i >= m) {
           return;
         }
@@ -805,8 +805,26 @@ describe('Arbiter', function () {
     function noop () {
     }
 
+    function isArray(arg) {
+      return Object.prototype.toString.call(arg) === '[object Array]';
+    }
+
+    function forEach(arr, f) {
+      for (var i = 0, n = arr.length; i < n; i++) {
+        f(arr[i], i, arr);
+      }
+    }
+
+    function map(arr, f) {
+      var result = [];
+      for (var i = 0, n = arr.length; i < n; i++) {
+        result.push(f(arr[i], i, arr));
+      }
+      return result;
+    }
+
     function repeat (n, value) {
-      return (Array.apply(null, Array(n))).map(function () {
+      return map(Array.apply(null, Array(n)), function () {
         return value;
       });
     }
