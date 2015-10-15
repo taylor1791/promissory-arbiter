@@ -25,7 +25,6 @@ module.exports = function karmaConfig (karma) {
       singleRun: false,
       frameworks: ['jasmine'],
       browsers: ['PhantomJS'],
-      transports: ['jsonp-polling'],
       reporters: ['progress', 'coverage'],
 
       files: [
@@ -47,12 +46,6 @@ module.exports = function karmaConfig (karma) {
 
   function getCustomLaunchers() {
     var launchers = {
-      sl_ie6: {
-        browserName: 'internet explorer', platform: 'Windows XP', version: '6.0'
-      },
-      sl_ie7: {
-        browserName: 'internet explorer', platform: 'Windows XP', version: '7.0'
-      },
       sl_ie8: {
         browserName: 'internet explorer', platform: 'Windows XP', version: '8.0'
       },
