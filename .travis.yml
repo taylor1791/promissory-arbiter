@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '0.10'
 after_script:
-  - codeclimate-test-reporter < docs/coverage/PhantomJS\ 1.9.8\ \(Mac\ OS\ X\ 0.0.0\)/lcov.info
+  - codeclimate-test-reporter < docs/coverage/PhantomJS\ 1.9.8\ \(Linux\ 0.0.0\)/lcov.info
 after_success:
 - test "$TRAVIS_REPO_SLUG" == "taylor1791/promissory-arbiter" && test "$TRAVIS_PULL_REQUEST"
   == "false" && test "$TRAVIS_BRANCH" == "master" && bash scripts/deploy-docs.sh
