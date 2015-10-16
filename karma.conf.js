@@ -9,6 +9,7 @@ module.exports = function karmaConfig (karma) {
     config.reporters.push('saucelabs');
     config.customLaunchers = customLaunchers;
     config.browsers = config.browsers.concat(Object.keys(customLaunchers));
+    config.coverageReporter.type = 'lcov';
   }
 
   karma.set(config);

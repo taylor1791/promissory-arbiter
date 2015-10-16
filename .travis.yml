@@ -1,9 +1,14 @@
 language: node_js
 node_js:
 - '0.10'
+after_script:
+  - codeclimate-test-reporter < docs/coverage/PhantomJS\ 1.9.8\ \(Mac\ OS\ X\ 0.0.0\)/lcov.info
 after_success:
 - test "$TRAVIS_REPO_SLUG" == "taylor1791/promissory-arbiter" && test "$TRAVIS_PULL_REQUEST"
   == "false" && test "$TRAVIS_BRANCH" == "master" && bash scripts/deploy-docs.sh
+addons:
+  code_climate:
+    repo_token: YCGHgksMjS92mmK5InLvVuQU6fXteYuN2JVf1AldNdqTKPz6BxbqTMBJ0dW2Il5UOLlKxH/cGXFMEq7q3cucdUyFZ2caE9//WS7TOI8jjA+xaOXajtqlcx2SsCXbuEmd4pptJISSaajXKYfnECbxIgfRbVVH0v9go3CeizvyOKDLiKvVGUZQtfYnrtzTrl11SgYh+0pCZ7H46UEM3R7VIRrOJE8WOhjV4o2s4JIz6zKPshmvfySr7Cchk4eLi0uWYXAvRneTmUB71E5LxvnB9G+JsKMVMQf6LACS+Cw0MICD8BGdayxjDpN5hjJSNdaaTRsEwNaFVjNtDqF7DyCzMzyYWuQjO0Gw9axokgaKvkFzchRQSQEvmDh7RdKLIeG6TZhqZF6aX3Sv2u41FCtA7WHNF67eI0kUgdazwIdxqXKUWJ0BmiD0p7NX3r/2wEii6DaWgA7W4GLI9h1JB83nhVW/yfs+1BPcPB6NI9FBVloccdEddrHPEsATOPn1lKlEo0GBNq/cvA43C3mwm3eUa5VLVP1xX8+3XZf8w9hYnuznYxXpDGy0pOmRc+XM5G5GSY6tlM+ZPFcq2gBskCM5EkcDxdu4WPa/Z24mGLdoZmsNuJiXwe/BpvBOBk/PfbOYKLgBLh4kQMbHGIOcnz8URJFyNIRpTIyvWNXPB8cxn88=
 env:
   global:
   # DEPLOY
