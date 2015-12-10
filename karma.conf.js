@@ -51,26 +51,62 @@ module.exports = function karmaConfig (karma) {
       sl_ie8: {
         browserName: 'internet explorer', platform: 'Windows XP', version: '8.0'
       },
-      sl_safari_windows: {
-        browserName: 'safari', platform: 'Windows 7', version: '5.1'
+      sl_ie9: {
+        browserName: 'internet explorer', platform: 'Windows 7', version: '9.0'
       },
-      sl_firefox_legacy: {
-        browserName: 'firefox', platform: 'Windows XP', version: '4.0'
+      sl_ie10: {
+        browserName: 'internet explorer', platform: 'Windows 8', version: '10.0'
       },
-      sl_chrome_legacy: {
-        browserName: 'chrome', platform: 'Windows 7', version: '26'
+      sl_ie11: {
+        browserName: 'internet explorer', platform: 'Windows 8.1', version: '11.0'
       },
       sl_edge: {
         browserName: 'microsoftedge', platform: 'Windows 10', version: '20.10240'
       },
+      sl_safari_windows: {
+        browserName: 'safari', platform: 'Windows 7', version: '5.1'
+      },
+      sl_mountain_lion: {
+        browserName: 'safari', platform: 'OS X 10.8', version: '6'
+      },
+      sl_mavericks: {
+        browserName: 'safari', platform: 'OS X 10.9', version: '7'
+      },
+      sl_yosemite: {
+        browserName: 'safari', platform: 'OS X 10.10', version: '8'
+      },
       sl_capitan: {
         browserName: 'safari', platform: 'OS X 10.11', version: '9'
       },
-      sl_firefox: {
+      sl_firefox_legacy: {
+        browserName: 'firefox', platform: 'Windows XP', version: '4.0'
+      },
+      sl_firefox_prev: {
+        browserName: 'firefox', platform: 'Linux', version: '41'
+      },
+      sl_firefox_curr: {
         browserName: 'firefox', platform: 'Linux', version: '42'
       },
-      sl_chrome: {
-        browserName: 'chrome', platform: 'Windows 8', version: '46'
+      sl_firefox_beta: {
+        browserName: 'firefox', platform: 'Linux', version: 'beta'
+      },
+      sl_firefox_dev: {
+        browserName: 'firefox', platform: 'Linux', version: 'dev'
+      },
+      sl_chrome_legacy: {
+        browserName: 'chrome', platform: 'Windows 7', version: '26'
+      },
+      sl_chrome_prev: {
+        browserName: 'chrome', platform: 'Windows 10', version: '45'
+      },
+      sl_chrome_curr: {
+        browserName: 'chrome', platform: 'Windows 10', version: '46'
+      },
+      sl_chrome_beta: {
+        browserName: 'chrome', platform: 'Linux', version: 'beta'
+      },
+      sl_chrome_dev: {
+        browserName: 'chrome', platform: 'OS X 10.11', version: 'dev'
       },
     };
 
