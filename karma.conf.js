@@ -5,6 +5,7 @@ module.exports = function karmaConfig (karma) {
 
   if (process.env.CI) {
     var customLaunchers = getCustomLaunchers();
+    config.concurrency = 5;
     config.sauceLabs = {testName: 'Promissory Arbiter Browser Support'};
     config.reporters.push('saucelabs');
     config.customLaunchers = customLaunchers;
