@@ -63,13 +63,13 @@ module.exports = function karmaConfig (karma) {
         browserName: 'microsoftedge', platform: 'Windows 10', version: '20.10240'
       },
       sl_capitan: {
-        browserName: 'safari', platform: 'OS X 10.11', version: '8.1'
+        browserName: 'safari', platform: 'OS X 10.11', version: '9'
       },
       sl_firefox: {
-        browserName: 'firefox', platform: 'Linux', version: '41'
+        browserName: 'firefox', platform: 'Linux', version: '42'
       },
       sl_chrome: {
-        browserName: 'chrome', platform: 'Windows 8', version: '45'
+        browserName: 'chrome', platform: 'Windows 8', version: '46'
       },
     };
 
