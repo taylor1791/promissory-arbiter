@@ -26,12 +26,12 @@ var log = function(data, topic) {
 };
 
 Arbiter.subscribe('work.code', log);
-Arbiter.subscribe('work', log); // Subscribes to both `work.code` and `work`
-Arbiter.subscribe('', log); // subscribe to all messages
+Arbiter.subscribe('work', log); // Subscribe to both `work.code` and `work`
+Arbiter.subscribe('', log); // Subscribe to all messages
 Arbiter.publish('work.code', {type: 'js', duration: 3600});
 ```
 
-While library will only work in ES3 browsers if you provide an A+ compatible
+This library will only work in ES3 browsers if you provide an A+ compatible
 promise library. If you need one try
 [ES6-promise](https://github.com/jakearchibald/es6-promise).
 
@@ -41,7 +41,7 @@ Promissory Arbiter is a pure JavaScript implementation of the publish-subscribe
 or Observer pattern. "Subscribers" subscribe to topics (or messages or channels)
 and the publishers send these messages or publications when they are ready for
 them. This allows components to be "loosely" coupled which can lead to more
-maintainable code if used correctly.
+maintainable code, if used correctly.
 
 Promissory Arbiter is asynchronous by default. This means that all subscribers
 are notified asynchronously of messages. This makes code easier to reason about
@@ -54,7 +54,7 @@ having a hard time understanding what asynchronous means.
 ```
 Arbiter.subscribe('my.topic', log);
 Arbiter.publish('my.topic', data);
-console.log('I execute _before_ the subsriber on the first line!');
+console.log('I execute _before_ the subscriber on the first line!');
 ```
 
 If you are a synchronous kind of bird, you can set the synchronous option to
