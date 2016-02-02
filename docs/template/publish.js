@@ -46,12 +46,9 @@ function publish(taffy, opts) {
 }
 
 function createOutput(opts, index, data) {
-  var
-    destination = opts.destination,
-    staticDest = path.join(opts.destination, '/static');
+  var destination = opts.destination;
 
   fs.mkdir(destination);
-  fs.mkdir(staticDest);
 
   fs.writeFileSync(
     path.join(destination, 'index.html'),
@@ -59,8 +56,8 @@ function createOutput(opts, index, data) {
     'utf8'
   );
 
-  copySync(path.join(templateDir, 'static/'), staticDest);
-  copySync(data.pkg.main, path.join(staticDest, 'promissory-arbiter.js'));
+  copySync(path.join(templateDir, 'assets/'), destination);
+  copySync(data.pkg.main, path.join(destination, 'static', 'promissory-arbiter.js'));
 }
 
 function addOrder(doc) {
