@@ -28,7 +28,7 @@
   "dependencies": {},
   "devDependencies": {
     "codeclimate-test-reporter": "^0.3.0",
-    "es6-promise": "^3.0.2",
+    "es6-promise": "^3.1.2",
     "eslint": "^1.10.3",
     "fs-extra": "^0.26.2",
     "handlebars": "^4.0.5",
