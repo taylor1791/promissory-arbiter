@@ -586,6 +586,8 @@
           resolver.fulfilledValues.concat(resolver.rejectedValues)
         ) : resolver.fulfill(resolver.fulfilledValues);
     }
+
+    return resolver.settled;
   }
 
   // Invokes a subscription with the required parameters and acts as an adapter
@@ -645,6 +647,8 @@
     if (node.topic === topic) {
       return curryMap(property, f, descendents(node));
     }
+
+    return null;
   }
 
   // Finds the subscription associated with a token and unsuspendes it.
