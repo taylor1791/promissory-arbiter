@@ -87,12 +87,12 @@ module.exports = function karmaConfig (karma) {
       sl_firefox_curr: {
         browserName: 'firefox', platform: 'Linux', version: '42'
       },
-      sl_firefox_beta: {
-        browserName: 'firefox', platform: 'Linux', version: 'beta'
-      },
-      sl_firefox_dev: {
-        browserName: 'firefox', platform: 'Linux', version: 'dev'
-      },
+      // sl_firefox_beta: {
+      //   browserName: 'firefox', platform: 'Linux', version: 'beta'
+      // },
+      // sl_firefox_dev: {
+      //   browserName: 'firefox', platform: 'Linux', version: 'dev'
+      // },
       sl_chrome_legacy: {
         browserName: 'chrome', platform: 'Windows 7', version: '26'
       },
@@ -102,12 +102,12 @@ module.exports = function karmaConfig (karma) {
       sl_chrome_curr: {
         browserName: 'chrome', platform: 'Windows 10', version: '46'
       },
-      sl_chrome_beta: {
-        browserName: 'chrome', platform: 'Linux', version: 'beta'
-      },
-      sl_chrome_dev: {
-        browserName: 'chrome', platform: 'OS X 10.11', version: 'dev'
-      },
+      // sl_chrome_beta: {
+      //   browserName: 'chrome', platform: 'Linux', version: 'beta'
+      // },
+      // sl_chrome_dev: {
+      //   browserName: 'chrome', platform: 'OS X 10.11', version: 'dev'
+      // },
     };
 
     Object.keys(launchers).forEach(function(key) {
