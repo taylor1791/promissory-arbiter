@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '0.10'
+- '4'
 after_script:
   - codeclimate-test-reporter < docs/coverage/PhantomJS\ 1.9.8\ \(Linux\ 0.0.0\)/lcov.info
 after_success:

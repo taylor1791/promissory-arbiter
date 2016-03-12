@@ -32,6 +32,7 @@
     "eslint": "^1.10.3",
     "fs-extra": "^0.26.2",
     "handlebars": "^4.0.5",
+    "jasmine-core": "^2.4.1",
     "jsdoc": "^3.4.0",
     "karma": "^0.13.11",
     "karma-coverage": "^0.5.0",
@@ -39,7 +40,8 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sauce-launcher": "^0.3.0",
     "marked": "^0.3.5",
-    "phantomjs": "^2.1.2"
+    "phantomjs": "^2.1.2",
+    "phantomjs-prebuilt": "^2.1.5"
   },
   "license": "ISC"
 }
