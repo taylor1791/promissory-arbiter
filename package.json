@@ -30,7 +30,7 @@
     "codeclimate-test-reporter": "^0.3.0",
     "es6-promise": "^3.0.2",
     "eslint": "^2.4.0",
-    "fs-extra": "^0.27.0",
+    "fs-extra": "^0.28.0",
     "handlebars": "^4.0.5",
     "jasmine-core": "^2.4.1",
     "jsdoc": "^3.4.0",
