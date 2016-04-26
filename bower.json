@@ -1,0 +1,23 @@
+{
+  "name": "promissory-arbiter",
+  "description": "An asynchronous, hierarchical, topic-based, promissory implementation of the pub-sub pattern",
+  "main": "src/promissory-arbiter.js",
+  "authors": [
+    "Taylor Everding <Taylor@Everding.email>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "observer",
+    "sub",
+    "pub",
+    "arbiter",
+    "events"
+  ],
+  "homepage": "http://arbiterjs.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "scripts"
+  ]
+}
