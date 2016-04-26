@@ -1,6 +1,6 @@
 {
   "name": "promissory-arbiter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An asynchronous, hierarchical, topic-based, promissory implementation of the pub-sub pattern",
   "author": "Taylor Everding <Taylor@Everding.email>",
   "scripts": {
