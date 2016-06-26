@@ -34,7 +34,7 @@
     "handlebars": "^4.0.5",
     "jasmine-core": "^2.4.1",
     "jsdoc": "^3.4.0",
-    "karma": "^0.13.11",
+    "karma": "^1.1.0",
     "karma-coverage": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.0",
