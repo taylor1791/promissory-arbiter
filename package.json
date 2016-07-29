@@ -29,7 +29,7 @@
   "devDependencies": {
     "codeclimate-test-reporter": "^0.3.0",
     "es6-promise": "^3.0.2",
-    "eslint": "^2.4.0",
+    "eslint": "^2.11.0",
     "fs-extra": "^0.30.0",
     "handlebars": "^4.0.5",
     "jasmine-core": "^2.4.1",
