@@ -4,9 +4,9 @@
   "description": "An asynchronous, hierarchical, topic-based, promissory implementation of the pub-sub pattern",
   "author": "Taylor Everding <Taylor@Everding.email>",
   "scripts": {
-    "lint": "eslint ./**/*.js",
-    "unit-test": "karma start --single-run",
-    "test": "npm run unit-test && npm run lint",
+    "test:style": "eslint ./**/*.js",
+    "test:unit": "karma start --single-run",
+    "test": "npm run test:unit && npm run test:style",
     "gen-docs": "jsdoc -c docs/jsdoc.config.json"
   },
   "homepage": "https://github.com/taylor1791/promissory-arbiter#readme",
