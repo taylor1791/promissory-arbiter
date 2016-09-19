@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Promissory Arbiter</title>
+    <meta name="description" content="An asynchronous, hierarchical, topic-based, promissory implementation of the pub-sub pattern">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="static/highlight/darkula.css" />
+    <link href="static/style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!--[if lt IE 11]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser.
+        This library will work with it, but you really should be <a href="http://browsehappy.com/">happy</a> during development.
+      </p>
+    <![endif]-->
+
+    <header class="hero">
+      <nav class="nav-container">
+        <div class="logo">Arbiter</div>
+        <ul class="main-nav">
+          <li class="main-nav__nav-item--active main-nav__nav-item">
+            <a class="main-nav__link main-nav__link--active" href="/">Home</a>
+          </li>
+
+          <li class="main-nav__nav-item">
+            <a class="main-nav__link" href="#docs">Docs</a>
+          </li>
+
+          <li class="main-nav__nav-item">
+            <a class="main-nav__link" href="//github.com/taylor1791/promissory-arbiter">Code</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="banner">
+        <div class="mascott">
+          <img src="static/promissory-arbiter-mascott.png" alt="mascot terry"/>
+        </div>
+
+        <div class="flex-row-sm">
+          <h1 class="hero-title">
+            <span class="secondary-title">Promissory</span>
+            Arbiter
+          </h1>
+
+          <pre><code>
+Arbiter.subscribe('code', doSomething);
+Arbiter.subscribe('code.write', doAnother);
+Arbiter.publish('code.write', data)
+  .then(subscribersComplete);
+          </code></pre>
+        </div>
+
+        <h2 class="hero-oneliner">Decouple your code with an asynchronous, hierarchical, promissory observer.</h2>
+      </div>
+    </header>
+
+    <!-- TODO Download and getting the code -->
+
+    <!-- TODO TOC <aside role="complementary"></aside> -->
+
+    <main id="docs" class="content">
+      <section id="getting-started">
+        <h3>Getting Started</h3>
+
+        <p>Getting arbiter up and running is simple. It can be used as a <code>node_module</code> on
+the client (using WebPack et al.) or on the server. It can even be
+<a href="https://raw.github.com/taylor1791/promissory-arbiter/master/src/promissory-arbiter.js">downloaded</a>
+and set into a <code>third_party</code> or <code>vendor</code> directory and used with a high fidelity
+<code>&lt;script&gt;</code> tag. Try it out in the console (unless you&#39;re on github)!</p>
+<pre><code>npm install promissory-arbiter
+</code></pre><p>Here is a quick example to get you started. If you want to see more advanced
+examples keep on reading. Take a look at the
+<a href="http://taylor1791.github.io/promissory-arbiter/">documentation site</a>.</p>
+<pre><code>var Arbiter = require(&#39;promissory-arbiter&#39;);
+var log = function(data, topic) {
+  console.log(topic, data);
+};
+
+Arbiter.subscribe(&#39;work.code&#39;, log);
+Arbiter.subscribe(&#39;work&#39;, log); // Subscribe to both `work.code` and `work`
+Arbiter.subscribe(&#39;&#39;, log); // Subscribe to all messages
+Arbiter.publish(&#39;work.code&#39;, {type: &#39;js&#39;, duration: 3600});
+</code></pre><p>This library will only work in ES3 browsers if you provide an A+ compatible
+promise library. If you need one try
+<a href="https://github.com/jakearchibald/es6-promise">ES6-promise</a>.</p>
+
+      </section>
+
+      <section id="introduction">
+        <h3>Introduction</h3>
+
+        <p>Promissory Arbiter is a pure JavaScript implementation of the publish-subscribe
+or Observer pattern. &quot;Subscribers&quot; subscribe to topics (or messages or channels)
+and the publishers send these messages or publications when they are ready for
+them. This allows components to be &quot;loosely&quot; coupled which can lead to more
+maintainable code, if used correctly.</p>
+<p>Promissory Arbiter is asynchronous by default. This means that all subscribers
+are notified asynchronously of messages. This makes code easier to reason about
+especially when subscribers fire off additional events. This also
+lines up with the expectations of most other uses of the callback pattern in
+JavaScript effectively reducing cognitive load. Since you have been reading
+a while. Take a break by trying the following code in the console if you are
+having a hard time understanding what asynchronous means.</p>
+<pre><code>Arbiter.subscribe(&#39;my.topic&#39;, log);
+Arbiter.publish(&#39;my.topic&#39;, data);
+console.log(&#39;I execute _before_ the subscriber on the first line!&#39;);
+</code></pre><p>If you are a synchronous kind of bird, you can set the synchronous option to
+true. If you try it in the console, remember that you changed it! For a more
+complete list of options checkout <a href="#options">Options</a>.</p>
+<pre><code>Arbiter.options.sync = true;
+</code></pre><p>When publishing to the topic <code>&quot;a.b.c&quot;</code>, all subscribers to <code>&quot;&quot;</code>, <code>&quot;a&quot;</code>,
+<code>&quot;a.b&quot;</code>, and <code>&quot;a.b.c&quot;</code> receive the publication in priority order. If
+a subscriber in <code>&quot;a.b.c&quot;</code> has a higher priority than a subscriber to <code>&quot;&quot;</code>,
+it will be notified before <code>&quot;&quot;</code>. The <code>&quot;.&quot;</code> separates the topic &quot;generations&quot;
+and every ancestor of a topic will be notified in addition to original
+publisher topic. <code>&quot;&quot;</code> is an ancestor of every topic (except itself).
+Try out the example on the top of the page or read more about topics
+in the <a href="#topic">Topics</a> section below.</p>
+<p>The last unique feature of promissory-arbiter is &quot;promissory&quot; features. When a
+publication is made, the publisher gets a promise that it can use to reason
+about the subscribers. The promise will resolve according to the specified
+options. By default, when all subscribers are complete the promise fulfills
+and if any fail, it rejects. This can be changed to allow for a number
+fulfilled or percent of all subscribers to be fulfilled. You can even relax
+the promise to be resolved when a number or percent resolves regardless of
+their success or failure status. In addition to this, it has settings for only
+running specified number of subscribers at at a time. All of this is documented
+in the <a href="#options">Options</a> section, or randomly guess the options until you
+have something like the following.</p>
+<pre><code>Arbiter.subscribe(&#39;get.data&#39;, getPeople, {priority: 10});
+Arbiter.subscribe(&#39;get.data&#39;, getPlaces, {priority: 9});
+Arbiter.subscribe(&#39;get.data&#39;, getThings, {priority: 8});
+Arbiter.subscribe(&#39;get.data&#39;, getIdeas, {priority: 7});
+
+// Let&#39;s pretend we are in IE7 and we can only have 2 ajax requests at a time.
+Arbiter.publish(&#39;get.data&#39;, null, {semaphor: 2}).then(function(results) {
+  // `results` is an array of the people, places, things, and ideas,
+  // however only 2 of the subscriptions were ever pending at a time!
+}, function(errs) {
+  // If any of the publishers fail, you can have the errors here.
+});
+</code></pre>
+      </section>
+
+      <section id="topic">
+        <h3>Topic</h3>
+
+
+
+        <p>A Topic is simply a string. This string is can contain any character, but
+two characters have special meanings. The comma <code>&#39;,&#39;</code>, with optional
+whitespace, separates individual Topics. This means that <code>&quot;a, b&quot;</code> is the
+same as two separate topics, <code>[&quot;a&quot;, &quot;b&quot;]</code>. The second special character is
+the period or dot <code>&#39;.&#39;</code>. This character separates generations. In the
+example <code>&quot;a.b&quot;</code>, <code>&quot;a&quot;</code> is an ancestor of it and <code>&quot;a.b.c&quot;</code> is a descendent
+of it. This creates a hierarchical relationship between topics. When
+you publish a topic all of the ancestors or parents are also
+notified. The empty string is an ancestor all topics. When publishing
+to <code>&quot;a.b.c.d&quot;</code>, all subscribers to <code>&quot;&quot;</code>, <code>&quot;a&quot;</code>, <code>&quot;a.b&quot;</code>, <code>&quot;a.b.c&quot;</code>,
+<code>&quot;a.b.c.d&quot;</code> will be executed in priority order. If there is a
+subscriber to <code>&quot;&quot;</code> with a very high priority, it will be notified
+before <code>&quot;a&quot;</code> with a much lower priority.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>Arbiter.subscribe(&#x27;&#x27;, function f1 () {});
+Arbiter.subscribe(&#x27;a&#x27;, function f2 () {});
+Arbiter.subscribe(&#x27;a.b&#x27;, function f3 () {});
+Arbiter.subscribe(&#x27;a.c&#x27;, function f4 () {});
+Arbiter.subscribe(&#x27;a.b.c&#x27;, function f5 () {});
+Arbiter.publish(&#x27;a.b&#x27;); // Executes f1, f2, f3 in priority order</code></pre>
+      </section>
+
+      <section id="subscription">
+        <h3>Subscription</h3>
+
+
+      <pre class="type-signature"><code class="type-signature"><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->Subscription(<!--
+
+      --><!--
+        --><span class="tooltip"><!--
+        --><!--
+          -->Object<!--
+          --><p>This is either a <code>Promise</code> or a value used to
+  communicate when the subscriber is done.</p>
+<!--
+        --><!--
+        --></span><!--
+      --><!--
+      --></span><!--
+
+    --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->data<!--
+
+        --><span class="tooltip"><!--
+          -->Object<!--
+          --><p>The data associated with the publication.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->topic<!--
+
+        --><span class="tooltip"><!--
+          -->Topic<!--
+          --><p>The topic to which the publication belongs.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->callback<!--
+
+        --><span class="tooltip"><!--
+          -->function<!--
+          --><p>A node style callback.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     --><!--
+   -->)<!--
+  --></code></pre>
+
+
+        <p>A Subscription is a function provided to the <code>subscribe</code> method. It is used
+as a callback when a publication occurs. The subscriber is considered
+&quot;done working&quot; if it returns a value (even <code>undefined</code>). If an error is
+thrown, then it is assumed that the subscriber failed. If it returns a
+<code>Promise</code>, then it is &quot;done&quot; when the <code>Promise</code> is fulfilled. If rejected,
+it is assumed to fail. If the subscriber function has a length of 3
+or more, then it is provided with callback function as the third argument
+to be treated as a node-style callback. The first argument to the callback
+is the error and the second is the &quot;return value&quot;.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>// All of the following look the same from a publishers perspective.
+Arbiter.subscribe(&#x27;my.topic&#x27;, function() {
+  return new Promise(function(fulfill, reject) {
+    Math.random() &gt; 0.5 ? fulfill(&#x27;hi&#x27;) : reject(&#x27;bye&#x27;);
+  });
+});
+
+Arbiter.subscribe(&#x27;my.topic&#x27;, function(data, topic, done) {
+  Math.random() &gt; 0.5 ? done(null, &#x27;hi&#x27;) : done(&#x27;bye&#x27;);
+});
+
+Arbiter.subscribe(&#x27;my.topic&#x27;, function() {
+  if (Math.random() &gt; 0.5) {
+    return &#x27;hi&#x27;;
+  } else {
+    throw &#x27;bye&#x27;;
+  }
+});</code></pre>
+      </section>
+
+      <section id="subscribe">
+        <h3>subscribe</h3>
+
+
+      <pre class="type-signature"><code class="type-signature"><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->subscribe(<!--
+
+      --><!--
+        --><span class="tooltip"><!--
+        --><!--
+          -->Token<!--
+          --><p>A unique token to remove this subscription from
+  the distribution list.</p>
+<!--
+        --><!--
+        --></span><!--
+      --><!--
+      --></span><!--
+
+    --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->topic<!--
+
+        --><span class="tooltip"><!--
+          -->Topic | Array.&lt;Topic&gt;<!--
+          --><p>The title of the topic to listen for
+  publications. Topics are hierarchical can be separated by <code>&quot;,&quot;</code>.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->subscription<!--
+
+        --><span class="tooltip"><!--
+          -->Subscription<!--
+          --><p>The function to invoke every
+  time a publication occurs. If <code>subscription</code> is not a function, a
+  no-operation is put in its place.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->options<!--
+
+        --><span class="tooltip"><!--
+          -->Object<!--
+          --><p>An object that can have two properties.
+  <code>ignorePersited</code> and <code>priority</code>.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->context<!--
+
+        --><span class="tooltip"><!--
+          -->Object<!--
+          --><p>The value of <code>this</code> for the subscription.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     --><!--
+   -->)<!--
+  --></code></pre>
+
+
+        <p><code>Arbiter.subscribe</code> registers a subscription to a topic and its
+descendants. When a publication occurs it will be notified. The behavior
+can be modified by using the options parameter. <code>options.priority</code>
+establishes the order to notify subscribers when multiple subscribers
+exist. The other option is <code>ignorePersisted</code>. This allows a subscriber
+to skip being notified of saved messages.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>Arbiter.publish(&#x27;my.topic&#x27;, null, {persist: true});
+Arbiter.subscribe(&#x27;my.topic&#x27;, log, {ignorePersisted: true}); // &#x3D;&gt; Nothing</code></pre>
+      </section>
+
+      <section id="publish">
+        <h3>publish</h3>
+
+
+      <pre class="type-signature"><code class="type-signature"><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->publish(<!--
+
+      --><!--
+        --><span class="tooltip"><!--
+        --><!--
+          -->PublicationPromise<!--
+          --><p>This resolves according to
+  <a href="#options"><code>Options</code></a></p>
+<!--
+        --><!--
+        --></span><!--
+      --><!--
+      --></span><!--
+
+    --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->topic<!--
+
+        --><span class="tooltip"><!--
+          -->Topic<!--
+          --><p>All subscribers to this topic, will be notified of
+  the publication</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->data<!--
+
+        --><span class="tooltip"><!--
+          -->Object<!--
+          --><p>This data is the publication that all subscribers
+  will receive.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->options<!--
+
+        --><span class="tooltip"><!--
+          -->Object<!--
+          --><p>These options override the options in
+  Arbiter.options for this publication only. See <a href="#options"><code>Options</code></a> for
+  a complete list</p>
+<!--
+        --></span><!--
+      --></span><!--
+     --><!--
+   -->)<!--
+  --></code></pre>
+
+
+        <p><code>Arbiter.publish</code> notifies all subscribers of a publication by invoking
+their subscription function with the data and topic associated with the
+publication.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>var options &#x3D; {persist: true, preventBubble: true};
+Arbiter.publish(&#x27;app.init&#x27;, &#x27;initialization&#x27;, options);
+Arbiter.subscribe(&#x27;app&#x27;, log); // &#x3D;&gt; Nothing because of &#x60;preventBubble&#x60;
+Arbiter.subscribe(&#x27;app.init&#x27;, log); // &#x3D;&gt; logs app.init initialization</code></pre>
+      </section>
+
+      <section id="options">
+        <h3>Options</h3>
+
+        <div class="object-properties">
+          <div class="object-property">
+            <div class="property-name">persist</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">boolean</code></pre>
+            </div>
+            <div class="property-description"><p>When true, subscribers are notified
+  of past messages.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">sync</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">boolean</code></pre>
+            </div>
+            <div class="property-description"><p>When true, invokes the subscription
+  functions synchronously.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">preventBubble</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">boolean</code></pre>
+            </div>
+            <div class="property-description"><p>When true, only the topics
+  that match the published topics exactly are invoked.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">latch</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">number</code></pre>
+            </div>
+            <div class="property-description"><p>When this number is less
+  than one, it is the ratio of subscribers that must fulfilled before
+  resolving the <code>PublicationPromise</code>. If greater or equal to one,
+  then it is a count of the subscribers that must fulfill.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">settlementLatch</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">boolean</code></pre>
+            </div>
+            <div class="property-description"><p>Changes the resolving logic
+  of <code>PublicationPromise</code> to be based off resolved rather than
+  fulfilled promises. This means that failed subscribers will count
+  toward the tally of latch.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">semaphor</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">number</code></pre>
+            </div>
+            <div class="property-description"><p>The maximum number of subscribers
+  to allowed to be pending at any given point in time.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">updateAfterSettlement</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">boolean</code></pre>
+            </div>
+            <div class="property-description"><p>If true, updates the
+  <code>PublicationPromise</code> after it resolves.</p>
+</div>
+          </div>
+        </div>
+
+
+        <p>Arbiter has a few options to affect the way that subscribers are
+notified and PublicationPromises are resolved.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>Arbiter.subscribe(&#x27;a&#x27;, log);
+Arbiter.subscribe(&#x27;a.b&#x27;, log);
+Arbiter.subscribe(&#x27;a.b.c&#x27;, log);
+var promise &#x3D; Arbiter.publish(&#x27;a.b.c&#x27;, {latch: 1});
+
+// Remeber publish is async by default?
+// promise.pending &#x3D;&#x3D;&#x3D; 3;
+// promise.fulfilled &#x3D;&#x3D;&#x3D; 0;
+// promise.rejected &#x3D;&#x3D;&#x3D; 0;</code></pre>
+      </section>
+
+      <section id="publication-promise">
+        <h3>PublicationPromise</h3>
+
+        <div class="object-properties">
+          <div class="object-property">
+            <div class="property-name">fulfilled</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">number</code></pre>
+            </div>
+            <div class="property-description"><p>The number of promises fulfilled when this
+  promise settles.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">rejected</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">number</code></pre>
+            </div>
+            <div class="property-description"><p>The number of promises rejected when this
+  promise settles.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">pending</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">number</code></pre>
+            </div>
+            <div class="property-description"><p>The number of promises pending when this
+  promise settles.</p>
+</div>
+          </div>
+          <div class="object-property">
+            <div class="property-name">token</div>
+            <div class="property-type">
+<pre class="inline-pre"><code class="inline-code">Token</code></pre>
+            </div>
+            <div class="property-description"><p>If the <code>options.persist</code> is true, then a token is
+  added to the promise so it can be removed later.</p>
+</div>
+          </div>
+        </div>
+
+
+        <p><code>publish</code> returns a <code>PublicationPromise</code>. This is a regular old
+promise with some additional properties described below. Each property is
+updated in real time as updates occur; it stops updating when the promise
+fulfills. This can be changed with
+<code>Arbiter.options.updateAfterSettlement</code>.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>Arbiter.subscribe(&#x27;get&#x27;, getFromCache);
+Arbiter.subscribe(&#x27;get&#x27;, getFromAjax);
+Arbiter.publish(&#x27;get&#x27;, {latch: 1})
+  .then(function(data) {
+    // This is fulfilled when one of the subscribers fulfills because
+    // of &#x60;latch: 1&#x60;. In this case we could also use &#x60;latch: 0.5&#x60;.
+  }, function(errs) {
+    // This occurs when it is impossible to satisify the latch. In this
+    // case, both have to fail.
+  });</code></pre>
+      </section>
+
+      <section id="unsubscribe">
+        <h3>unsubscribe</h3>
+
+
+      <pre class="type-signature"><code class="type-signature"><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->unsubscribe(<!--
+
+      --><!--
+        --><span class="tooltip"><!--
+        --><!--
+          -->Boolean<!--
+          --><p>Returns false if the token&#39;s subscription cannot be
+  located and true otherwise. This returns an array if multiple tokens
+  or topics used.</p>
+<!--
+        --><!--
+        --></span><!--
+      --><!--
+      --></span><!--
+
+    --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->token<!--
+
+        --><span class="tooltip"><!--
+          -->Token | Topic<!--
+          --><p>Removes the subscription associated with the
+  provided token. If a topic is provided, then this removes all
+  subscribers and their descendants are removed.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     -->, <!--
+   --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->suspend<!--
+
+        --><span class="tooltip"><!--
+          -->Boolean<!--
+          --><p>If this true, then the subscriptions
+  are only suspended. This means that they will not be notified of any
+  publications, but they can be re-enabled with [Arbiter.resubscribe].</p>
+<!--
+        --></span><!--
+      --></span><!--
+     --><!--
+   -->)<!--
+  --></code></pre>
+
+
+        <p><code>Arbiter.unsubscribe</code> removes the subscribers associated with a token or
+ a topic. This prevents them from being notified when a publication
+ occurs. By default these cannot be recovered, however this also allows
+ us to temporarily suspend them instead.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>Arbiter.subscribe(&#x27;a&#x27;, function a () {});
+Arbiter.subscribe(&#x27;a.b&#x27;, function ab () {});
+var bToken &#x3D; Arbiter.subscribe(&#x27;b&#x27;, function b () {});
+Arbiter.subscribe(&#x27;c&#x27;, function c () {});
+Arbiter.unsubscribe(bToken); // &#x27;a&#x27;, &#x27;a.b&#x27;, &#x27;c&#x27; remain
+Arbiter.unsubscribe(&#x27;a&#x27;); // Only &#x27;c&#x27; remains
+Arbiter.unsubscribe(&#x27;&#x27;); // Removes all subscriptions</code></pre>
+      </section>
+
+      <section id="resubscribe">
+        <h3>resubscribe</h3>
+
+
+      <pre class="type-signature"><code class="type-signature"><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->resubscribe(<!--
+
+      --><!--
+        --><span class="tooltip"><!--
+        --><!--
+          -->Boolean<!--
+          --><p>Returns false if the token&#39;s subscription cannot be
+  located and true otherwise. This returns an array if multiple tokens
+  or topics used.</p>
+<!--
+        --><!--
+        --></span><!--
+      --><!--
+      --></span><!--
+
+    --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->token<!--
+
+        --><span class="tooltip"><!--
+          -->Token | Topic<!--
+          --><p>The token or topic to reactivates</p>
+<!--
+        --></span><!--
+      --></span><!--
+     --><!--
+   -->)<!--
+  --></code></pre>
+
+
+        <p>Reactivates all subscriptions associated with a token or all
+ subscriptions that are descendants of a topic.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>Arbiter.subscribe(&#x27;a, b, c&#x27;, function() {}); // Create 3 listeners
+Arbiter.unsubscribe(&#x27;&#x27;, true); // Suspends all listeners
+Arbiter.resubscribe(&#x27;&#x27;); // Resumes all listeners</code></pre>
+      </section>
+
+      <section id="remove-persisted">
+        <h3>removePersisted</h3>
+
+
+      <pre class="type-signature"><code class="type-signature"><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->removePersisted(<!--
+
+      --><!--
+        --><span class="tooltip"><!--
+        --><!--
+          -->Boolean<!--
+          --><p><code>false</code> if the topic or token does not exist, <code>true</code>
+  otherwise.</p>
+<!--
+        --><!--
+        --></span><!--
+      --><!--
+      --></span><!--
+
+    --><!--
+      --><span class="nohighlight tooltip-container"><!--
+        -->token<!--
+
+        --><span class="tooltip"><!--
+          -->Token | Topic<!--
+          --><p>The publication or topics to remove. Note: If
+  provided the [PublicationPromise], then this uses the token
+  associated with it.</p>
+<!--
+        --></span><!--
+      --></span><!--
+     --><!--
+   -->)<!--
+  --></code></pre>
+
+
+        <p>Removes the publications that are stored (persisted) for late subscribers
+by providing either a <code>Token</code> or a <code>Topic</code>.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>Arbiter.publish(&#x27;a&#x27;, null, {persist: true});
+Arbiter.subscribe(&#x27;a&#x27;, function a1 () {}); // Executes a1
+Arbiter.removedPersisted();
+Arbiter.subscribe(&#x27;a&#x27;, function a2 () {}); // Does not execute a2</code></pre>
+      </section>
+
+      <section id="create">
+        <h3>create</h3>
+
+
+
+        <p>Creates a new instance of Arbiter that is completely separate from the
+original. It has its own set of topics, subscribers, and options.</p>
+
+
+      <h4>Example</h4>
+        <pre><code>var arbiter &#x3D; Arbiter.create();
+Arbiter.subscribe(&#x27;a&#x27;, function a () {});
+arbiter.publish(&#x27;a&#x27;); // Does not execute a</code></pre>
+      </section>
+
+    </main>
+
+    <footer></footer>
+
+    <script src="static/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script async src="./static/promissory-arbiter.js"></script>
+    <script type="text/javascript">
+      // This is for copy and paste friendly examples
+      var data = "This was defined for your copy-and-past-ability.";
+
+      function log(data, topic) {
+        console.log(topic, data);
+      }
+
+      function doSomething(data, topic) {
+        console.log('Oops! It looks like you forgot to define `doSomething`. Don\'t worry, I took care of it for you. Don\'t let it happen again!');
+        log(data, topic);
+      }
+
+     var doAnother = doSomething;
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-68769758-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
+
