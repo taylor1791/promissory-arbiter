@@ -82,10 +82,10 @@ module.exports = function karmaConfig (karma) {
         browserName: 'firefox', platform: 'Windows XP', version: '4.0'
       },
       sl_firefox_prev: {
-        browserName: 'firefox', platform: 'Linux', version: '42'
+        browserName: 'firefox', platform: 'Linux', version: '44'
       },
       sl_firefox_curr: {
-        browserName: 'firefox', platform: 'Linux', version: '43'
+        browserName: 'firefox', platform: 'Linux', version: '45'
       },
       // sl_firefox_beta: {
       //   browserName: 'firefox', platform: 'Linux', version: 'beta'
@@ -97,10 +97,10 @@ module.exports = function karmaConfig (karma) {
         browserName: 'chrome', platform: 'Windows 7', version: '26'
       },
       sl_chrome_prev: {
-        browserName: 'chrome', platform: 'Windows 10', version: '46'
+        browserName: 'chrome', platform: 'Windows 10', version: '52'
       },
       sl_chrome_curr: {
-        browserName: 'chrome', platform: 'Windows 10', version: '47'
+        browserName: 'chrome', platform: 'Windows 10', version: '53'
       },
       // sl_chrome_beta: {
       //   browserName: 'chrome', platform: 'Linux', version: 'beta'
