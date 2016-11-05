@@ -60,8 +60,11 @@ module.exports = function karmaConfig (karma) {
       sl_ie11: {
         browserName: 'internet explorer', platform: 'Windows 8.1', version: '11.0'
       },
-      sl_edge: {
-        browserName: 'microsoftedge', platform: 'Windows 10', version: '20.10240'
+      sl_edge_13: {
+        browserName: 'microsoftedge', platform: 'Windows 10', version: '13'
+      },
+      sl_edge_14: {
+        browserName: 'microsoftedge', platform: 'Windows 10', version: '14'
       },
       sl_safari_windows: {
         browserName: 'safari', platform: 'Windows 7', version: '5.1'
