@@ -1,4 +1,6 @@
 # Promissory Arbiter [![Build Status](https://secure.travis-ci.org/taylor1791/promissory-arbiter.png?branch=master)](https://travis-ci.org/taylor1791/promissory-arbiter) [![Test Coverage](https://codeclimate.com/github/taylor1791/promissory-arbiter/badges/coverage.svg)](https://codeclimate.com/github/taylor1791/promissory-arbiter/coverage) [![Code Climate](https://codeclimate.com/github/taylor1791/promissory-arbiter/badges/gpa.svg)](https://codeclimate.com/github/taylor1791/promissory-arbiter) [![NPM version](https://badge-me.herokuapp.com/api/npm/promissory-arbiter.png)](http://badges.enytc.com/for/npm/promissory-arbiter) [![devDependency Status](https://david-dm.org/taylor1791/promissory-arbiter/dev-status.svg)](https://david-dm.org/taylor1791/promissory-arbiter#info=devDependencies)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/taylor1791/promissory-arbiter.svg)](https://greenkeeper.io/)
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/taylor1791-arbiter.svg)](https://saucelabs.com/u/taylor1791-arbiter)
 
 > An asynchronous, hierarchical, topic-based, promissory implementation of the pub-sub pattern
