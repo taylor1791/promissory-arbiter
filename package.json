@@ -27,10 +27,10 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.3.0",
-    "es6-promise": "^3.0.2",
+    "codeclimate-test-reporter": "^0.4.1",
+    "es6-promise": "^4.1.0",
     "eslint": "^3.5.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^2.1.1",
     "handlebars": "^4.0.5",
     "jasmine-core": "^2.4.1",
     "jsdoc": "^3.4.0",
